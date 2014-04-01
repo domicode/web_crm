@@ -9,16 +9,10 @@
 
 <body>
   <h1> <%= %></h1>
-    <form action="/contacts" method="post">
-      <input type="text" name="first_name" id="first_name" value="first name">
-      <input type="text" name="second_name" id="second_name" value ="second name">
-      <input type="text" name="address" id="address" value ="address">
-      <input type="text" name="place" id="place" value ="place">
-      <!-- <label for="login_password">Password</label> -->
-      <fieldset>
-        <input type="submit" name="login_submit" id="login_submit" value="Add new contact ">
-       <!-- <label><input type="checkbox" name="login_remember" id="login_remember"> Stay signed in</label> -->
-      </fieldset>
+        <a href="/contacts"><button type="submit" formaction="/contacts" formmethod="get" name="see_contacts" id="see_contacts">See contacts</button></a>
+        <button action ="/contacts" type="submit" name="ad_contact" id="see_contacts" value="see contacts">Add a contact</button>
+    <form action="/add_contact" method="get">
+        <button action ="/contacts" type="submit" name="see_contacts" id="see_contacts" value="see contacts">Edit a contact</button>
     </form>
 </body>
 </html>

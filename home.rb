@@ -1,4 +1,6 @@
 require "sinatra"
+require_relative "contact" #??
+require_relative "rolodex"
 
 class Contact
 
@@ -30,7 +32,7 @@ post "/contacts" do
   puts params
   new_contact = Contact.new(params[:first_name])
   if !new_contact.valid?
-    redirect to("/")# do something
+    redirect to("/add_contact")# do something
   end
   Contact.all_contacts << new_contact
   redirect to ("/contacts") #add new contacs
@@ -39,6 +41,10 @@ end
 get "/contacts" do
   @contacts = Contact.all_contacts
   erb :contacts
+end
+
+get "/add_contact" do
+  erb :add_contact
 end
 
 # get "/:name" do
