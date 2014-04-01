@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<head>
+<link href="<%= url('/stylesheet.css') %>" rel="stylesheet" type"text/css"/>
+  <meta charset="utf-8">
+  <title>My personal resume</title> 
+</head>
+
+<body>
+  <h1> Contacts: </h1>
+  <% @contacts.each do |contact| %>
+  <li><%= contact.name %></li>
+  <% end %> 
+</body>
+</html>
+
+
+<!-- ERB code: <% = function, <%= show the stuff -->
+
