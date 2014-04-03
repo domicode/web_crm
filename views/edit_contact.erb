@@ -1,0 +1,17 @@
+
+  <h1> <%= %></h1>
+    <form <form action="/contacts/<%= @contact.id %>" method="post">
+      <input type="hidden" name="_method" value="put">
+      <input type="text" name="first_name" id="first_name" value="<%= @contact.first_name %>"></input>
+      <input type="text" name="last_name" id="last_name" value="<%= @contact.last_name %>"</input>
+      <input type="text" name="address" id="address" value="<%= @contact.address %>"></input>
+      <input type="text" name="postcode" id="postcode" value="<%= @contact.postcode %>"></input>
+      <input type="text" name="place" id="place" value="<%= @contact.place %>"></input>
+      <input type="text" name="email" id="email" value="<%= @contact.email %>"></input>
+      <textarea type="text" name="textarea" id="textarea" value="<%= @contact.notes %>"></textarea>
+      <!-- <label for="login_password">Password</label> -->
+      <fieldset>
+        <input type="submit" name="login_submit" id="login_submit" value="Update contact">
+       <!-- <label><input type="checkbox" name="login_remember" id="login_remember"> Stay signed in</label> -->
+      </fieldset>
+    </form>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <link rel="stylesheet" type="text/css" href="../stylesheet.css">
+  </head>
+
+  <body>
+    <h1>Welcome to sunnyside CRM</h1>
+    <div id="main_menu">
+      <ul>
+        <li id="first"><a href="/contacts">See contacts</a></li>
+        <li id="second"> <a href="/contacts/new">Add a contact</a></li>
+        <li id="last"><a href="">Edit a contact</a></li>
+      </ul>
+    </div>
+
+    <div id="content">
+      <%= yield %>
+    </div>
+  </body>
+</html>
