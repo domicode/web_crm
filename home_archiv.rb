@@ -1,30 +1,34 @@
 require "sinatra"
 require "sinatra/content_for"
 require "data_mapper"
+require_relative "contact" #??
 require_relative "rolodex"
 
-DataMapper.setup(:default, "sqlite3:database.sqlite3")
+DataMapper.setup(:defaut, "sqlite3:database.sqlite3")
 
-class Contact
+# class Contact
 
-  include DataMapper::Resource 
+#   @@all_contacts = []
 
-  property :id, Serial #Set the values and also makes it an attr_accessor as well as initalize
-  property :first_name, String
-  property :last_name, String
-  property :address, String
-  property :postcode, String
-  property :place, String 
-  property :email, String
-  property :notes, String
+#   attr_accessor :name
 
-end
+#   def initialize(name)
+#     @name = name
+#   end
 
-DataMapper.finalize #check if my inputs are valid, e.g. string = string 
-DataMapper.auto_upgrade!
+#   def self.all_contacts
+#     @@all_contacts
+#   end
 
+#   def valid? 
+#     if name.empty? or name == "first name"
+#       false
+#     else 
+#       true
+#     end
+#   end
 
-
+# end
 
 @@rolodex = Rolodex.new
 
@@ -33,18 +37,20 @@ get '/contacts/new' do
 end
 
 post "/contacts" do 
-  # puts params
-  # new_contact = Contact.new(params[:first_name], params[:last_name], params[:address], params[:place], params[:postcode], params[:email], params[:notes])
-  # @@rolodex.add_contact(new_contact)
-  @contact = Contact.create
-    :first_name => params[:first_name],
-    :last_name => params[:last_name],
-    #etc
+  puts params
+  # new_contact = Contact.new(params[:first_name])
+  # Contact.all_contacts << new_contact
+  # redirect to ("/contacts") #add new contacts
+  new_contact = Contact.new(params[:first_name], params[:last_name], params[:address], params[:place], params[:postcode], params[:email], params[:notes])
+  # if !new_contact.valid?
+  #    redirect to("/contacts/new")# do something
+  # end
+  @@rolodex.add_contact(new_contact)
   redirect to('/contacts/a_z')
 end
 
 get "/contacts" do
-  @contacts = Contact.all
+  @@rolodex
   erb :contacts
 end
 
@@ -56,7 +62,7 @@ end
 
 
 get "/contacts/:id/edit" do
-  @contact = Contact.get(params[:id].to_i)
+  @contact = @@rolodex.find(params[:id].to_i)
   if @contact
     erb :edit_contact
   else
@@ -79,7 +85,7 @@ end
 
 
 get "/contacts/:id" do #the :id will be transferred automattically through the params. :id can be a number, string whatever
-  @contact =  Contact.get(params[:id].to_i)
+  @contact = @@rolodex.find(params[:id].to_i)
   if @contact
     erb :show_contact
   else
@@ -113,6 +119,23 @@ delete "/contacts/:id" do #delete contact
     raise Sinatra::NotFound
   end
 end
+
+# get "/add_contact" do
+#   erb :new_contact
+# end
+
+
+
+
+
+
+
+
+# get "/:name" do
+#   puts params
+#   @name = params[:name].capitalize #make it an instance variable so that it's acceesible in the erb etemplate
+#   erb :name
+# end
 
 get "/"  do #specific routes go to the bottom, individual ones are on top, like if else statement
   puts params
