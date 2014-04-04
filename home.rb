@@ -2,6 +2,8 @@ require "sinatra"
 require "sinatra/content_for"
 require "data_mapper"
 require_relative "rolodex"
+require "debugger"
+require 'dm-timestamps'
 
 DataMapper.setup(:default, "sqlite3:database.sqlite3")
 
@@ -16,7 +18,8 @@ class Contact
   property :postcode, String
   property :place, String 
   property :email, String
-  property :notes, String
+  property :notes, Text
+  property :created_on, Date
 
 end
 
@@ -26,8 +29,6 @@ DataMapper.auto_upgrade!
 
 
 
-@@rolodex = Rolodex.new
-
 get '/contacts/new' do
   erb :new_contact
 end
@@ -36,10 +37,15 @@ post "/contacts" do
   # puts params
   # new_contact = Contact.new(params[:first_name], params[:last_name], params[:address], params[:place], params[:postcode], params[:email], params[:notes])
   # @@rolodex.add_contact(new_contact)
-  @contact = Contact.create
-    :first_name => params[:first_name],
-    :last_name => params[:last_name],
-    #etc
+  @contact = Contact.create(
+    :first_name => params[:first_name].capitalize,
+    :last_name => params[:last_name].capitalize,
+    :address => params[:address].capitalize, 
+    :place => params[:place].capitalize, 
+    :postcode => params[:postcode], 
+    :email => params[:email], 
+    :notes => params[:notes]
+    )
   redirect to('/contacts/a_z')
 end
 
@@ -49,8 +55,7 @@ get "/contacts" do
 end
 
 get "/contacts/a_z" do
-  @@rolodex.sort
-  @@rolodex
+  @contacts = Contact.all(:order => [:last_name.asc])
   erb :contacts_az
 end
 
@@ -68,9 +73,33 @@ get "/contacts/search" do
   erb :search
 end
 
+get "/order" do
+  @contacts = Contact.all(:order => [:"#{params[:order]}".asc])
+  erb :contacts_az
+end
+
+get "/orderfull" do
+  @contacts = Contact.all(:order => [:"#{params[:order]}".asc])
+  erb :contacts
+end
+
+
 get "/search" do
-    @contact = @@rolodex.search(params[:last_name])
-  if @contact
+
+    # @contact = 
+    # Contact.all(:last_name.like => params[:last_name] +
+    #             :first_name.like => params[:last_name])
+
+@term = params[:term]
+@results = Contact.all(:id.like => @term) +
+           Contact.all(:first_name.like => "%"+@term+"%") +
+           Contact.all(:last_name.like => "%"+@term+"%") +
+           Contact.all(:address.like => "%"+@term+"%") +
+           Contact.all(:postcode.like => "%"+@term+"%") +
+           Contact.all(:place.like => "%"+@term+"%") +
+           Contact.all(:email.like => "%"+@term+"%") +
+           Contact.all(:notes.like => "%"+@term+"%") 
+  if @results
     erb :show_contact
   else
     erb :search
@@ -88,16 +117,16 @@ get "/contacts/:id" do #the :id will be transferred automattically through the p
 end
 
 put "/contacts/:id" do #update contact
-  @contact = @@rolodex.find(params[:id].to_i)
+  @contact = Contact.get(params[:id].to_i)
   if @contact
-    @contact.first_name = params[:first_name]
-    @contact.last_name = params[:last_name]
-    @contact.address = params[:address]
+    @contact.first_name = params[:first_name].capitalize
+    @contact.last_name = params[:last_name].capitalize
+    @contact.address = params[:address].capitalize
     @contact.postcode = params[:postcode]
-    @contact.place = params[:place]
+    @contact.place = params[:place].capitalize
     @contact.email = params[:email]
     @contact.notes = params[:notes]
-
+    @contact.save
     redirect to("contacts/a_z")
   else
     raise Sinatra::NotFound
@@ -105,9 +134,9 @@ put "/contacts/:id" do #update contact
 end
 
 delete "/contacts/:id" do #delete contact
-  @contact = @@rolodex.find(params[:id].to_i)
+  @contact = Contact.get(params[:id].to_i)
   if @contact
-    @@rolodex.remove_contact(@contact)
+    @contact.destroy
     redirect to("/contacts")
   else
     raise Sinatra::NotFound
@@ -115,6 +144,6 @@ delete "/contacts/:id" do #delete contact
 end
 
 get "/"  do #specific routes go to the bottom, individual ones are on top, like if else statement
-  puts params
+  @contacts = Contact.all
   erb :contacts
 end

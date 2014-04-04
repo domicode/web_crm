@@ -2,8 +2,8 @@
 Search for a contact
 <% end %>
 
-    <form action="/search" id="search" method="get">
-      <input type="text" name="last_name" id="last_name" placeholder ="last name"></input>
+    <form action="/search" id="new_contact" method="get">
+      <input type="text" name="term" id="term" placeholder ="search term"></input>
       <!-- <label for="login_password">Password</label> -->
       <fieldset>
         <input type="submit" name="login_submit" id="login_submit" value="Search contact">
@@ -11,16 +11,21 @@ Search for a contact
       </fieldset>
     </form>
 
- <div class="contact">
-   <ul>
-   <div class="text">
-      <li><%= @contact.id %></li>
-      <li><%= @contact.first_name %> <%= @contact.last_name %></li>
-      <li><%= @contact.address %></li>
-      <li><%= @contact.postcode %><%= @contact.place %></li>
-      <li><%= @contact.email %></li>
-      <li><%= @contact.notes %></li>
-      </div>
-    </ul>
-  </div>
+<div class="all_contacts">
+  <% @results.each do |contact| %>
+   <div class="contact">
+     <ul>
+     <div class="text">
+        <li><%= contact.first_name %> <%= contact.last_name %></li>
+        <li><%= contact.address %></li>
+        <li><%= contact.postcode %> <%= contact.place %></li>
+        <li><%= contact.email %></li>
+        <li><%= contact.notes %></li>
+        </div>
+        <div class="datetime">Created on: <%= contact.created_on %></div>
+      </ul>
+      <div class="edit"><a href="/contacts/<%= contact.id %>/edit">+</a></div>
+    </div>
+  <% end %>
+</div>
 

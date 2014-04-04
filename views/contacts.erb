@@ -2,8 +2,25 @@
 Welcome to sunnyside CRM
 <% end %>
 
+    <form action="/orderfull" class="order" method="get">      
+      <div class="sort">
+        <select name="order">
+          <option value="last_name">choose contact order</option>
+          <option value="last_name">Last name</option>
+          <option value="first_name">First name</option>
+          <option value="address">Address</option>
+          <option value="postcode">Zip code</option>
+          <option value="place">Place</option>
+          <option value="email">email</option>
+        </select>
+      </div>
+      <fieldset>
+        <input type="submit" class="orderbutton" value="GO">
+      </fieldset>
+    </form>
+
 <div class="all_contacts">
-      <% @@rolodex.contacts.each do |contact| %>
+      <% @contacts.each do |contact| %>
         <div class="contact full">
         <ul>
           <li>ID: <%= contact.id %></li>
@@ -13,6 +30,7 @@ Welcome to sunnyside CRM
           <li><%= contact.email %></li>
           <li><%= contact.notes %></li>
         </ul>
+          <div class="datetime">Created on: <%= contact.created_on %></div>
           <div class="edit"><a href="/contacts/<%= contact.id %>/edit">+</a></div>
         </div>
       <% end %>

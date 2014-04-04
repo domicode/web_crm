@@ -97,6 +97,13 @@ h2 {
   color: none;
   overflow-y: scroll;
   line-height: 1.5rem;
+  opacity: 1;
+  -webkit-transform: scale(1,1);
+  -webkit-transition-timing-function: ease-out;
+  -webkit-transition-duration: 250ms;
+  -moz-transform: scale(1,1);
+  -moz-transition-timing-function: ease-out;
+  -moz-transition-duration: 250ms;
 }
 
 .contact li:last-child {
@@ -107,6 +114,16 @@ h2 {
 
 .contact:hover {
   height: auto;
+  opacity: 2;
+    -webkit-transform: scale(1.40,1.40);
+    -webkit-transition-timing-function: ease-out;
+    -webkit-transition-duration: 250ms;
+    -moz-transform: scale(1.20,1.25);
+    -moz-transition-timing-function: ease-out;
+    -moz-transition-duration: 250ms;
+    background-color: black;
+    position: relative;
+    z-index: 99;
 }
 
 .edit {
@@ -177,7 +194,11 @@ a:hover {
 }
 
 .full {
-  height: auto;
+  height: 200px;
+}
+
+.full:hover {
+  height: 200px;
 }
 
 #main_menu {
@@ -210,6 +231,18 @@ a:hover {
   border-right: 1px solid white;
   border-radius: 3px 0px 0px 3px;
 }
+
+#term {
+  width: 436px;
+  height: 40px;
+}
+
+::-webkit-input-placeholder #term { /* WebKit browsers */
+    color:    rgba(255,255,255,0.6);
+    font-weight:bold;
+    font-size: 0.9rem;
+}
+
 
 .left-menu {
   position: absolute;
@@ -256,9 +289,46 @@ textarea:focus {
   background-color: white;
 }
 
+.datetime {
+  font-size: 0.3rem;
+  size: auto;
+}
 
-/*From here it's about the new contact form
-*/
+.order select, .orderbutton {
+    border: 0 !important;  /*Removes border*/
+    -webkit-appearance: none;  /*Removes default chrome and safari style*/
+    -moz-appearance: none; /* Removes Default Firefox style*/
+    background: rgba(255,255,255,0.5) url(img/select-arrow.png) no-repeat 90% center;
+    width: auto; /*Width of select dropdown to give space for arrow image*/
+    text-indent: 0.01px; /* Removes default arrow from firefox*/
+    text-overflow: "";  /*Removes default arrow from firefox*/ /*My custom style for fonts*/
+    color: black;
+    border-radius: 0px;
+    padding: 5px;
+    box-shadow: inset 0 0 5px rgba(000,000,000, 0.5);
+    font-size: 0.8rem;
+    font-family: "Century Gothic";
+    position: relative;
+    float: left;
+}
+
+.orderbutton {
+    margin-left: -2px;
+    margin-top: -3px;
+}
+
+.orderbutton:hover {
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+}
+
+.order {
+  margin-left: 20px;
+}
+
+
+
+/*From here it's about the new contact form*/
 
 #new_contact {
   /*background: linear-gradient(top, #fff, #f8f8f8);*/

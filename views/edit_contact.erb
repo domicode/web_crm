@@ -7,13 +7,13 @@ Modify or delete your contact
   <h1> <%= %></h1>
     <form form action="/contacts/<%= @contact.id %>" id="new_contact" method="post">
       <input type="hidden" name="_method" value="put">
-      <input type="text" name="first_name" id="first_name" value="<%= @contact.first_name %>"></input>
-      <input type="text" name="last_name" id="last_name" value="<%= @contact.last_name %>"</input>
-      <input type="text" name="address" id="address" value="<%= @contact.address %>"></input>
-      <input type="text" name="postcode" id="postcode" value="<%= @contact.postcode %>"></input>
-      <input type="text" name="place" id="place" value="<%= @contact.place %>"></input>
-      <input type="text" name="email" id="email" value="<%= @contact.email %>"></input>
-      <textarea type="text" name="notes" id="notes"><%= @contact.notes %></textarea>
+      <input type="text" name="first_name" id="first_name" placeholder="first name" value="<%= @contact.first_name %>"></input>
+      <input type="text" name="last_name" id="last_name" placeholder="last name" value="<%= @contact.last_name %>"</input>
+      <input type="text" name="address" id="address" placeholder="address" value="<%= @contact.address %>"></input>
+      <input type="text" name="postcode" id="postcode" placeholder="postcode" value="<%= @contact.postcode %>"></input>
+      <input type="text" name="place" id="place" placeholder="place" value="<%= @contact.place %>"></input>
+      <input type="text" name="email" id="email" placeholder="e-mail" value="<%= @contact.email %>"></input>
+      <textarea type="text" name="notes" placeholder="notes" id="notes"><%= @contact.notes %></textarea>
       <!-- <label for="login_password">Password</label> -->
       <fieldset>
         <input type="submit" name="update_submit" id="update_submit" value="Update contact">
