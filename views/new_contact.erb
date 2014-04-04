@@ -1,5 +1,7 @@
+<% content_for :title do %>
+Add a new contact to your CRM
+<% end %>
 
-  <h1> <%= %></h1>
     <form action="/contacts" id="new_contact" method="post">
       <input type="text" name="first_name" id="first_name" placeholder="first name"></input>
       <input type="text" name="last_name" id="last_name" placeholder ="last name"></input>
@@ -7,7 +9,7 @@
       <input type="text" name="postcode" id="postcode" placeholder ="postcode"></input>
       <input type="text" name="place" id="place" placeholder ="place"></input>
       <input type="text" name="email" id="email" placeholder ="yourname@domain.ch"></input>
-      <textarea type="text" name="textarea" id="textarea" placeholder ="your notes here"></textarea>
+      <textarea type="text" name="notes" id="notes" placeholder ="your notes here"></textarea>
       <!-- <label for="login_password">Password</label> -->
       <fieldset>
         <input type="submit" name="login_submit" id="login_submit" value="Add new contact">

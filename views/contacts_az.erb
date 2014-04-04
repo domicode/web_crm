@@ -1,33 +1,19 @@
 <% content_for :title do %>
-Welcome to sunnyside CRM
+All contacts
 <% end %>
 
 <div class="all_contacts">
-      <% @@rolodex.contacts.each do |contact| %>
-        <div class="contact full">
+      <% @@rolodex.contacts_sort.each do |contact| %>
+        <div class="contact">
         <ul>
-          <li>ID: <%= contact.id %></li>
           <li><%= contact.first_name %> <%= contact.last_name %></li>
           <li><%= contact.address %></li>
           <li><%= contact.postcode %> <%= contact.place %></li>
           <li><%= contact.email %></li>
-          <li><%= contact.notes %></li>
+          <li>Notes:<br><%= contact.notes %></li>
         </ul>
           <div class="edit"><a href="/contacts/<%= contact.id %>/edit">+</a></div>
         </div>
       <% end %>
     </ul>
 </div>
-
-<%# 
-  <h1> Contacts: </h1>
-  <% @contacts.each do |contact| %>
- <%#  <li><%= contact.name %>
- <%#  <% end %>
-
-
-
-
-
-<!-- ERB code: <% = function, <%= show the stuff -->
-

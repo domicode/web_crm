@@ -4,7 +4,7 @@ class Contact
 
   attr_accessor :first_name, :id, :last_name, :address, :phone, :email, :notes, :postcode, :place
 
-  def initialize(first_name, last_name, address, postcode, place, email, notes)
+  def initialize(first_name, last_name, address, place, postcode, email, notes)
     @id = Contact.get_id #invoke class methods
     @notes = []
     @first_name = first_name
