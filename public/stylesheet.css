@@ -95,7 +95,7 @@ h2 {
   border: 1px solid rgba(255,255,255,1);
   border-radius: 10px;
   color: none;
-  overflow-y: scroll;
+  overflow-y: hidden;
   line-height: 1.5rem;
   opacity: 1;
   -webkit-transform: scale(1,1);
@@ -310,7 +310,9 @@ textarea:focus {
     font-family: "Century Gothic";
     position: relative;
     float: left;
+    outline: none;
 }
+
 
 .orderbutton {
     margin-left: -2px;
@@ -323,7 +325,8 @@ textarea:focus {
 }
 
 .order {
-  margin-left: 20px;
+  margin-left: 140px;
+  margin-top: -38px;
 }
 
 
